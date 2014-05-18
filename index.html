@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<title>Crunch Graph</Title>
+		<script type-"text/javascript" src="./d3.min.js"></script>
+    	<script type="text/javascript" src="./jquery.min.js"></script>
+	</head>
+	<body>
+		<script>
+			var CBG;
+			CBG = (function (CBG) {
+				var APIKEY = '969ee61fb37a4c12d3339951e52265e7';
+				var queryCompanyInfoUrl = 'http://api.crunchbase.com/v/2/organization/' + name + '?user_key=' + APIKEY
+				var queryCompanyInfo = function (name){
+					$.get(queryCompanyInfoUrl, function (data){
+						var json = JSON.parse(data);
+						var rounds = json.funding_rounds;
+						var items = rounds.items;
+						$('#test').html(data);
+					});
+				}
+
+				CBG.queryCompanyInfo = queryCompanyInfo;
+				return CBG;
+			})(CBG || {});
+
+
+			$(document).ready(function(){
+				CBG.queryCompanyInfo('Spotify');
+			});
+		</script>
+
+
+
+
+		<div class="test"></div>
+	</body>
+</html>
